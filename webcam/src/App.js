@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import CameraPage from "./pages/CameraPage";
 
 class App extends Component {
     render() {
         return (
-            <div>
-              
-            </div>
+            <Fragment>
+                <CameraPage/>
+            </Fragment>
         );
     }
 }

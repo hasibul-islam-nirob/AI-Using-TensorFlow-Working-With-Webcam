@@ -1,0 +1,10 @@
+.cameraArea{
+    border: 1px solid #d0cccc;
+}
+.saveButton, .captureButton{
+    margin-left: 200px;
+    margin-top: 5px;
+}
+.saveUserImg, .captureUserImg{
+    border: 1px solid #c9c7c7;
+}
