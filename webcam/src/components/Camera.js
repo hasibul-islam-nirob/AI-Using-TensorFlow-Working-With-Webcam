@@ -12,8 +12,17 @@ class Camera extends Component {
     constructor() {
         super();
         this.cameraRef = React.createRef();
+
+        this.state={
+            onCaptureImage:defaultImg
+        }
     }
 
+    onClickCapture = ()=>{
+        let captureUserImgBase64 = this.cameraRef.current.getScreenshot();
+        this.setState({onCaptureImage:captureUserImgBase64});
+
+    }
 
     render() {
         return (
@@ -27,10 +36,10 @@ class Camera extends Component {
                                 screenshotFormat="image/jpeg"
                                 ref={this.cameraRef}
                             />
-                            <button className="btn btn-success captureButton" > <MdOutlineCameraAlt/> Capture</button>
+                            <button onClick={this.onClickCapture} className="btn btn-success captureButton" > <MdOutlineCameraAlt/> Capture</button>
                         </Col>
                         <Col className=" p-3 mb-2" sm={12} md={6} lg={6} >
-                            <img className="saveUserImg  w-100" src={defaultImg} alt=""/>
+                            <img className="saveUserImg  w-100" src={this.state.onCaptureImage} alt=""/>
                             <button className="btn btn-success saveButton " > <HiOutlineSave/> Save </button>
                         </Col>
                     </Row>
