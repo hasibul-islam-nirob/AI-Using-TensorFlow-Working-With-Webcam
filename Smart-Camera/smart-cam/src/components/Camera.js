@@ -53,7 +53,15 @@ class Camera extends Component {
     }
 
 
-
+    ageAndGenderDetection=()=>{
+        (async ()=>{
+            let Img = document.getElementById('img');
+            await faceAPI.nets.ssdMobilenetv1.loadFromUri('models/');
+            await faceAPI.nets.ageGenderNet.loadFromUri('models/');
+            const result = await faceAPI.detectAllFaces(Img).withAgeAndGender();
+            this.setState({AgeAndGender:result});
+        })()
+    }
 
     render() {
         let demoJson=[{
