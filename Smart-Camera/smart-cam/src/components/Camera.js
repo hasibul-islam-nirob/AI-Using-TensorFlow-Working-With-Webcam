@@ -8,6 +8,8 @@ import Webcam from "react-webcam";
 import SweetAlert from "react-bootstrap-sweetalert";
 import ReactJson from "react-json-view";
 
+import * as faceAPI from "face-api.js";
+import {Button} from "bootstrap";
 
 class Camera extends Component {
 
@@ -17,20 +19,19 @@ class Camera extends Component {
 
         this.state={
             onCaptureImage:defaultImg,
-            userCameraError:false
+            userCameraError:false,
+            AgeAndGender:[]
         }
     }
 
     whenCameraError=()=>{
         this.setState({userCameraError:true})
     }
-
     onClickCapture = ()=>{
         let captureUserImgBase64 = this.cameraRef.current.getScreenshot();
         this.setState({onCaptureImage:captureUserImgBase64});
 
     }
-
     onSaveImage = ()=>{
         let imgBase64String = this.state.onCaptureImage;
         let a = document.createElement('a');
@@ -38,7 +39,6 @@ class Camera extends Component {
         a.download = 'webcam-image.jpeg';
         a.click();
     }
-
     CameraErrorAlert=()=>{
         if (this.state.userCameraError===true){
             return(
@@ -51,6 +51,9 @@ class Camera extends Component {
     tryAgain=()=>{
         window.location.href='/';
     }
+
+
+
 
     render() {
         let demoJson=[{
@@ -72,7 +75,7 @@ class Camera extends Component {
                             <button onClick={this.onClickCapture} className="btn btn-success captureButton" > <MdOutlineCameraAlt/> Capture</button>
                         </Col>
                         <Col className=" p-3 mb-2" sm={12} md={4} lg={4} >
-                            <img className="saveUserImg  w-100" src={this.state.onCaptureImage} alt=""/>
+                            <img id="img" className="saveUserImg  w-100" src={this.state.onCaptureImage} alt=""/>
                             <button onClick={this.onSaveImage} className="btn btn-success saveButton " > <HiOutlineSave/> Save </button>
                         </Col>
 
@@ -86,21 +89,18 @@ class Camera extends Component {
 
                 <Container className="mb-5">
                     <Row>
-                        <Col className="my-2" sm={12} md={6} lg={6} >
+                        <Col className="my-2" sm={12} md={4} lg={4} >
                             <h5>Face LandMark </h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="my-2" sm={12} md={6} lg={6} >
+                        <Col className="my-2" sm={12} md={4} lg={4} >
                             <h5>Face Expression Recognition</h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="my-2" sm={12} md={6} lg={6} >
-                            <h5>Age Estimation</h5>
-                            <ReactJson src={demoJson} theme="monokai" />
-                        </Col>
-                        <Col className="my-2" sm={12} md={6} lg={6} >
-                            <h5>Gender Recognition</h5>
-                            <ReactJson src={demoJson} theme="monokai" />
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Age & Gender Recognition</h5>
+                            <button onClick={this.ageAndGenderDetection} className="btn btn-success " >Click For Result</button>
+                            <ReactJson src={this.state.AgeAndGender} theme="monokai" />
                         </Col>
 
                     </Row>
