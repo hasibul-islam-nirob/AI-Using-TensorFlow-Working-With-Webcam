@@ -6,6 +6,7 @@ import defaultImg from "../assets/img/defaultImg.png";
 import {HiOutlineSave, MdOutlineCameraAlt} from "react-icons/all";
 import Webcam from "react-webcam";
 import SweetAlert from "react-bootstrap-sweetalert";
+import ReactJson from "react-json-view";
 
 
 class Camera extends Component {
@@ -83,22 +84,27 @@ class Camera extends Component {
                     </Row>
                 </Container>
 
-                <Container>
+                <Container className="mb-5">
                     <Row>
-                        <Col className="p-1" sm={12} md={4} lg={4} >
-
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Face LandMark </h5>
+                            <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="p-1" sm={12} md={4} lg={4} >
-
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Face Recognition</h5>
+                            <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="p-1" sm={12} md={4} lg={4} >
-
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Face Expression Recognition</h5>
+                            <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="p-1" sm={12} md={4} lg={4} >
-
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Age Estimation</h5>
+                            <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="p-1" sm={12} md={4} lg={4} >
-
+                        <Col className="my-2" sm={12} md={4} lg={4} >
+                            <h5>Gender Recognition</h5>
+                            <ReactJson src={demoJson} theme="monokai" />
                         </Col>
 
                     </Row>
