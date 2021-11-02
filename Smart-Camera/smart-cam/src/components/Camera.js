@@ -86,23 +86,19 @@ class Camera extends Component {
 
                 <Container className="mb-5">
                     <Row>
-                        <Col className="my-2" sm={12} md={4} lg={4} >
+                        <Col className="my-2" sm={12} md={6} lg={6} >
                             <h5>Face LandMark </h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="my-2" sm={12} md={4} lg={4} >
-                            <h5>Face Recognition</h5>
-                            <ReactJson src={demoJson} theme="monokai" />
-                        </Col>
-                        <Col className="my-2" sm={12} md={4} lg={4} >
+                        <Col className="my-2" sm={12} md={6} lg={6} >
                             <h5>Face Expression Recognition</h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="my-2" sm={12} md={4} lg={4} >
+                        <Col className="my-2" sm={12} md={6} lg={6} >
                             <h5>Age Estimation</h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
-                        <Col className="my-2" sm={12} md={4} lg={4} >
+                        <Col className="my-2" sm={12} md={6} lg={6} >
                             <h5>Gender Recognition</h5>
                             <ReactJson src={demoJson} theme="monokai" />
                         </Col>
