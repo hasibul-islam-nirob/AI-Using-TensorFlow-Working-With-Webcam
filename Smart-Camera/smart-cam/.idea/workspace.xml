@@ -10,6 +10,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="20NTnu7DS1C7nffGplYMPhjr9SI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -33,7 +36,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1635884215975</updated>
-      <workItem from="1635884218768" duration="5949000" />
+      <workItem from="1635884218768" duration="6449000" />
+      <workItem from="1635959257132" duration="699000" />
     </task>
     <servers />
   </component>

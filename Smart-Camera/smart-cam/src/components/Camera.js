@@ -9,7 +9,6 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import ReactJson from "react-json-view";
 
 import * as faceAPI from "face-api.js";
-import {Button} from "bootstrap";
 
 class Camera extends Component {
 
