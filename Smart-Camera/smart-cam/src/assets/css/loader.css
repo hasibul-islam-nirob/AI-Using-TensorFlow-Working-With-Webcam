@@ -1,0 +1,25 @@
+.loader-size{
+    width: 100px;
+    height: 100px;
+}
+
+.loadingOverlay{
+    background: rgba(0,0,0,0.6);
+    display: block;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    right: 0;
+    bottom: 0;
+}
+
+.center-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
