@@ -13,8 +13,8 @@ import Loader from "./loader";
 
 class Camera extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.cameraRef = React.createRef();
 
         this.state={
@@ -24,7 +24,10 @@ class Camera extends Component {
             mainDiv:"",
             loaderDiv:"d-none",
             age:"",
-            gender:""
+            gender:"",
+            expression:"",
+            faceExpression:[],
+            faceLandmarkPoint:[]
         }
     }
 
@@ -34,7 +37,9 @@ class Camera extends Component {
     onClickCapture = ()=>{
         let captureUserImgBase64 = this.cameraRef.current.getScreenshot();
         this.setState({onCaptureImage:captureUserImgBase64});
-
+        this.ageAndGenderDetection()
+        this.FaceExpression()
+        this.FaceLandMark()
     }
     onSaveImage = ()=>{
         let imgBase64String = this.state.onCaptureImage;
@@ -56,30 +61,71 @@ class Camera extends Component {
         window.location.href='/';
     }
 
-
     ageAndGenderDetection=()=>{
         (async ()=>{
             this.setState({loaderDiv:" "});
-            let Img = document.getElementById('img');
+            let image = document.getElementById('img');
             await faceAPI.nets.ssdMobilenetv1.loadFromUri('models/');
             await faceAPI.nets.ageGenderNet.loadFromUri('models/');
-            const result = await faceAPI.detectAllFaces(Img).withAgeAndGender();
-
+            const result = await faceAPI.detectAllFaces(image).withAgeAndGender();
             this.setState({
                 age:parseInt(result[0]['age']),
                 gender:result[0]['gender']
             })
-
             this.setState({AgeAndGender:result});
+            this.setState({loaderDiv:"d-none"})
+        })()
+    }
+    FaceExpression =()=>{
+        (async ()=>{
+            this.setState({loaderDiv:" "});
+            let Img = document.getElementById('img');
+            await faceAPI.nets.ssdMobilenetv1.loadFromUri('models/');
+            await faceAPI.nets.faceExpressionNet.loadFromUri('models/');
+            const result = await faceAPI.detectAllFaces(Img).withFaceExpressions();
+
+            let neutral = (result[0]['expressions']['neutral']);
+            let happy = (result[0]['expressions']['happy']);
+            let sad = (result[0]['expressions']['sad']);
+            let angry = (result[0]['expressions']['angry']);
+            let fearful = (result[0]['expressions']['fearful']);
+            let disgusted = (result[0]['expressions']['disgusted']);
+            let surprised = (result[0]['expressions']['surprised']);
+
+            if (neutral > 0.9 && neutral < 1.0){
+                this.setState({expression:"Neutral"});
+            }else if (happy > 0.9 && happy < 1.0){
+                this.setState({expression:"Happy"});
+            }else if (sad > 0.9 && sad < 1.0){
+                this.setState({expression:"Sad"});
+            }else if (angry > 0.9 && angry < 1.0){
+                this.setState({expression:"Angry"});
+            }else if (fearful > 0.9 && fearful < 1.0){
+                this.setState({expression:"Fearful"});
+            }else if (disgusted > 0.9 && disgusted < 1.0){
+                this.setState({expression:"Disgusted"});
+            }else if (surprised > 0.9 && surprised < 1.0){
+                this.setState({expression:"Surprised"});
+            }
+
+            this.setState({faceExpression:result});
+            this.setState({loaderDiv:"d-none"})
+
+        })()
+    }
+    FaceLandMark=()=>{
+        (async ()=>{
+            this.setState({loaderDiv:" "});
+            let Img = document.getElementById('img');
+            await faceAPI.nets.ssdMobilenetv1.loadFromUri('models/');
+            await faceAPI.nets.faceLandmark68Net.loadFromUri('models/');
+            const result = await faceAPI.detectAllFaces(Img).withFaceLandmarks();
+            this.setState({faceLandmarkPoint:result});
             this.setState({loaderDiv:"d-none"})
         })()
     }
 
     render() {
-        let demoJson=[{
-            "name":"Nirob",
-            "Age":"23"
-        }]
         return (
             <Fragment>
                 <div className={this.state.mainDiv}>
@@ -103,7 +149,7 @@ class Camera extends Component {
                             <Col className=" p-3 mb-2" sm={12} md={4} lg={4} >
                                 <h4>Age: <span className="text-danger">{this.state.age}</span> </h4>
                                 <h4>Gender: <span className="text-danger">{this.state.gender}</span> </h4>
-                                <h4>Expression: </h4>
+                                <h4>Expression: <span className="text-danger">{this.state.expression}</span> </h4>
                             </Col>
                         </Row>
                     </Container>
@@ -111,15 +157,17 @@ class Camera extends Component {
                         <Row>
                             <Col className="my-2" sm={12} md={4} lg={4} >
                                 <h5>Face LandMark </h5>
-                                <ReactJson src={demoJson} theme="monokai" />
+                                {/*<button onClick={this.FaceLandMark} className="btn btn-success " >Click For Result</button>*/}
+                                <ReactJson src={this.state.faceLandmarkPoint} theme="monokai" />
                             </Col>
                             <Col className="my-2" sm={12} md={4} lg={4} >
                                 <h5>Face Expression Recognition</h5>
-                                <ReactJson src={demoJson} theme="monokai" />
+                                {/*<button onClick={this.FaceExpression} className="btn btn-success " >Click For Result</button>*/}
+                                <ReactJson src={this.state.faceExpression} theme="monokai" />
                             </Col>
                             <Col className="my-2" sm={12} md={4} lg={4} >
                                 <h5>Age & Gender Recognition</h5>
-                                <button onClick={this.ageAndGenderDetection} className="btn btn-success " >Click For Result</button>
+                                {/*<button onClick={this.ageAndGenderDetection} className="btn btn-success " >Click For Result</button>*/}
                                 <ReactJson src={this.state.AgeAndGender} theme="monokai" />
                             </Col>
 
